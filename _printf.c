@@ -25,7 +25,11 @@ int _printf(const char *format, ...)
 	va_start(args, format);
 	while (*format && format != NULL)
 	{
-	if (*format == '%')
+	if (*format == '%' && *(format + 1) == '%')
+	{
+		chars_written += write(1, format, 1);
+	}
+	else if (*format == '%' && *(format + 1) != '%' &&  *(format + 1) != '\0')
 	{
 		format++;
 	switch (*format)
@@ -139,4 +143,5 @@ int _print_num(int n)
 
 	return (len);
 }
+
 
