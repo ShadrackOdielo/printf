@@ -1,14 +1,4 @@
-#include <stdio.h>
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-int _printf_string(va_list args);
-int _printf_percent(void);
-int _printf_char(va_list args);
-size_t _strlen(const char *s);
-int _print_num(int n);
-
+#include "main.h"
 /**
 * _printf - function that produces output according to a format
 * @format: character string
@@ -144,4 +134,14 @@ int _print_num(int n)
 	return (len);
 }
 
+/**
+ * _printf_integer - function that prints an integer
+ * @args: the arguments
+ * Return: number of characters printed
+ */
+int _printf_integer(va_list args)
+{
+	int n = va_arg(args, int);
 
+	return (_print_num(n));
+}
