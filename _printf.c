@@ -23,7 +23,7 @@ int _printf(const char *format, ...)
 	va_list args;
 
 	va_start(args, format);
-	while (*format)
+	while (*format && format != NULL)
 	{
 	if (*format == '%')
 	{
