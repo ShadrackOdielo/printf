@@ -29,45 +29,7 @@ int _printf(const char *format, ...)
 		else if (flag == 1)
 		{
 			flag = 0;
-			switch (format[count])
-			{
-				case 'c':
-					_putchar(va_arg(args, int));
-					total += 1;
-					break;
-				case 's':
-					total += _print_str(va_arg(args, char *));
-					break;
-				case '%':
-					_putchar('%');
-					total += 1;
-					break;
-				case 'd':
-					total += _print_int((long)(va_arg(args, int)));
-					break;
-				case 'i':
-					total += _print_int((long)(va_arg(args, int)));
-					break;
-				case 'b':
-					total += to_Binary(va_arg(args, int));
-					break;
-				case 'u':
-					total += _print_int(va_arg(args, unsigned int));
-					break;
-				case 'o':
-					total += to_Octal(va_arg(args, int));
-					break;
-				case 'x':
-					total += to_Hexa(va_arg(args, int));
-					break;
-				case 'X':
-					total += to_Hexa(va_arg(args, int));
-					break;
-				default:
-					_putchar('%');
-					_putchar(format[count]);
-					total += 2;
-			}
+			total += handle_format_specifiers(format[count], args);
 		}
 		else
 		{
@@ -77,4 +39,36 @@ int _printf(const char *format, ...)
 	}
 	va_end(args);
 	return (total);
+}
+
+int handle_format_specifiers(const char specifier, va_list args) {
+    switch (specifier)
+    {
+        case 'c':
+            _putchar(va_arg(args, int));
+            return 1;
+        case 's':
+            return _print_str(va_arg(args, char *));
+        case '%':
+            _putchar('%');
+            return 1;
+        case 'd':
+            return _print_int((long)(va_arg(args, int)));
+        case 'i':
+            return _print_int((long)(va_arg(args, int)));
+        case 'b':
+            return to_Binary(va_arg(args, int));
+        case 'u':
+            return _print_int(va_arg(args, unsigned int));
+        case 'o':
+            return to_Octal(va_arg(args, int));
+        case 'x':
+            return to_Hexa(va_arg(args, int));
+        case 'X':
+            return to_Hexa(va_arg(args, int));
+        default:
+            _putchar('%');
+            _putchar(specifier);
+            return 2;
+    }
 }
