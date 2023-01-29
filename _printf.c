@@ -41,37 +41,43 @@ int _printf(const char *format, ...)
 	return (total);
 }
 
-int handle_format_specifiers(const char specifier, va_list args) {
-    switch (specifier)
-    {
-        case 'c':
-            _putchar(va_arg(args, int));
-            return 1;
-        case 's':
-            return _print_str(va_arg(args, char *));
-        case '%':
-            _putchar('%');
-            return 1;
-        case 'd':
-            return _print_int((long)(va_arg(args, int)));
-        case 'i':
-            return _print_int((long)(va_arg(args, int)));
-        case 'b':
-            return to_Binary(va_arg(args, int));
-        case 'u':
-            return _print_int(va_arg(args, unsigned int));
-        case 'o':
-            return to_Octal(va_arg(args, int));
-        case 'x':
-            return to_Hexa(va_arg(args, int));
-        case 'X':
-            return to_Hexa(va_arg(args, int));
-        case 'p':
-            
-            return print_address(args);
-        default:
-            _putchar('%');
-            _putchar(specifier);
-            return 2;
-    }
+/**
+  * handle_format_specifiers - handles format specifiers
+  * @specifier: format specifier
+  * @args: list of arguments
+  * Return: number of characters printed
+  */
+int handle_format_specifiers(const char specifier, va_list args)
+{
+	switch (specifier)
+	{
+	case 'c':
+		_putchar(va_arg(args, int));
+		return (1);
+	case 's':
+		return (_print_str(va_arg(args, char *)));
+	case '%':
+		_putchar('%');
+		return (1);
+	case 'd':
+		return (_print_int((long)(va_arg(args, int))));
+	case 'i':
+		return (_print_int((long)(va_arg(args, int))));
+	case 'b':
+		return (to_Binary(va_arg(args, int)));
+	case 'u':
+		return (_print_int(va_arg(args, unsigned int)));
+	case 'o':
+		return (to_Octal(va_arg(args, int)));
+	case 'x':
+		return (to_Hexa(va_arg(args, int)));
+	case 'X':
+		return (to_Hexa(va_arg(args, int)));
+	case 'p':
+		return (print_address(args));
+	default:
+		_putchar('%');
+		_putchar(specifier);
+return (2);
+}
 }
