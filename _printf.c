@@ -66,6 +66,9 @@ int handle_format_specifiers(const char specifier, va_list args) {
             return to_Hexa(va_arg(args, int));
         case 'X':
             return to_Hexa(va_arg(args, int));
+        case 'p':
+            
+            return print_address(args);
         default:
             _putchar('%');
             _putchar(specifier);
