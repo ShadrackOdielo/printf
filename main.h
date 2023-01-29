@@ -1,18 +1,14 @@
 #ifndef MAIN_H
 #define MAIN_H
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <limits.h>
+#define NULL ((void *)0)
 
+int _putchar(char c);
+int _print_str(char *string);
+int _print_int(long int var);
 int _printf(const char *format, ...);
-int _printf_char(va_list args);
-int _printf_string(va_list args);
-int _printf_percent(void);
-int _printf_integer(va_list args);
-size_t _strlen(const char *s);
-int _print_num(int n);
-
+int to_Binary(unsigned int n);
+int to_Octal(unsigned int n);
+int _power_recursion(int x, int y);
+int to_Hexa(unsigned int num);
 
 #endif
-

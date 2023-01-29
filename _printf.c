@@ -1,147 +1,80 @@
+#include <stdarg.h>
 #include "main.h"
-/**
-* _printf - function that produces output according to a format
-* @format: character string
-*
-* Return: number of characters printed
-*/
+#include <stdio.h>
 
+/**
+  * _printf - produces output according to a format.
+  * @format: a character string.
+  * Return: number of characters printed(
+  * excluding the null terminator)
+  */
 
 int _printf(const char *format, ...)
 {
-	int chars_written = 0;
+	int count;
+	int total = 0;
 	va_list args;
+	int flag = 0;
+
+	if (format == NULL)
+		return (0);
 
 	va_start(args, format);
-	while (*format && format != NULL)
+	for (count = 0; *(format + count) != '\0'; count++)
 	{
-	if (*format == '%' && *(format + 1) == '%')
-	{
-		chars_written += write(1, format, 1);
-	}
-	else if (*format == '%' && *(format + 1) != '%' &&  *(format + 1) != '\0')
-	{
-		format++;
-	switch (*format)
-	{
-		case 'c':
-		chars_written += _printf_char(args);
-			break;
-		case 's':
-			chars_written += _printf_string(args);
-		break;
-		case '%':
-		chars_written += _printf_percent();
-			break;
-		case 'd':
-		case 'i':
-			chars_written += _print_num(va_arg(args, int));
-		break;
-		default:
-			chars_written += write(1, format, 1);
+		if (format[count] == '%')
+		{
+			flag = 1;
 		}
-	} else
-	{
-		chars_written += write(1, format, 1);
+		else if (flag == 1)
+		{
+			flag = 0;
+			switch (format[count])
+			{
+				case 'c':
+					_putchar(va_arg(args, int));
+					total += 1;
+					break;
+				case 's':
+					total += _print_str(va_arg(args, char *));
+					break;
+				case '%':
+					_putchar('%');
+					total += 1;
+					break;
+				case 'd':
+					total += _print_int((long)(va_arg(args, int)));
+					break;
+				case 'i':
+					total += _print_int((long)(va_arg(args, int)));
+					break;
+				case 'b':
+					total += to_Binary(va_arg(args, int));
+					break;
+				case 'u':
+					total += _print_int(va_arg(args, unsigned int));
+					break;
+				case 'o':
+					total += to_Octal(va_arg(args, int));
+					break;
+				case 'x':
+					total += to_Hexa(va_arg(args, int));
+					break;
+				case 'X':
+					total += to_Hexa(va_arg(args, int));
+					break;
+				default:
+					_putchar('%');
+					_putchar(format[count]);
+					total += 2;
+			}
+		}
+		else
+		{
+			_putchar(format[count]);
+			total += 1;
+		}
 	}
-	format++;
-	}
-
 	va_end(args);
-	return (chars_written);
-}
-
-/**
-* _printf_percent - function that produces output according to a format
-* Return: number of characters printed
-*/
-
-
-int _printf_percent(void)
-{
-	char c = '%';
-
-	return (write(1, &c, 1));
-}
-
-/**
-* _printf_string - function that produces output according to a format
-* @args:the arguments.
-* Return: number of characters printed
-*/
-
-
-int _printf_string(va_list args)
-{
-	char *str = va_arg(args, char*);
-
-	return (write(1, str, _strlen(str)));
-}
-
-/**
-* _strlen - function that produces output according to a format
-*@s:character pointer.
-* Return: number of characters printed
-*/
-
-size_t _strlen(const char *s)
-{
-	size_t len = 0;
-
-	while (s[len] != '\0')
-	{
-	len++;
-}
-	return (len);
-}
-
-/**
-* _printf_char - function that produces output according to a format
-*@args:the args here.
-* Return: number of characters printed
-*/
-
-int _printf_char(va_list args)
-{
-	char c = va_arg(args, int);
-
-	return (write(1, &c, 1));
-}
-
-/**
- * _print_num - function that prints an integer
- * @n: integer to print
- *
- * Return: number of characters printed
- */
-int _print_num(int n)
-{
-	int len = 0;
-
-	if (n < 0)
-	{
-	len += write(1, "-", 1);
-	n = -n;
-	}
-
-	if (n >= 10)
-	{
-	len += _print_num(n / 10);
-	}
-
-	len += write(1, &"0123456789"[n % 10], 1);
-
-	return (len);
-}
-
-/**
- * _printf_integer - function that prints an integer
- * @args: the arguments
- * Return: number of characters printed
- */
-int _printf_integer(va_list args)
-{
-	int n = va_arg(args, int);
-
-	return (_print_num(n));
+	return (total);
 }
