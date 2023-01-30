@@ -7,6 +7,7 @@
  */
 
 int _print_str(char *string)
+
 {
 	int count = 0;
 
