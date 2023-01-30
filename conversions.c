@@ -6,6 +6,7 @@
   * Return: number of base 2 characters.
   */
 int to_Binary(unsigned int n)
+
 {
 	int binary[sizeof(unsigned int) * 8],
 	modula, j, chars_counter = 0;
