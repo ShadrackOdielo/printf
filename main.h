@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 #define NULL ((void *)0)
+
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
