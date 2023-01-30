@@ -49,7 +49,7 @@ int _printf(const char *format, ...)
   */
 int handle_format_specifiers(const char specifier, va_list args)
 {
-	switch (specifier)
+switch (specifier)
 	{
 	case 'c':
 		_putchar(va_arg(args, int));
